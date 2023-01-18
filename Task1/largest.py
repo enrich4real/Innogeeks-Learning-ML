@@ -1,4 +1,4 @@
-#largest element
+#largest element in a array
 import numpy as np
 a=int(input("Enter the number of rows="))
 b=int(input("Enter the number of columns="))
