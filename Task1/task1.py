@@ -1,84 +1,94 @@
-def largest():
-    #largest element
-    large=mat[0][1]
-    for i in range(0,a):
-        for j in range(0,i+1):
-            if mat[i][j] >= large:
-                large=mat[i][j]
-                x=i
-                y=j
-    print("largest number is {},{}= {}".format(x,y,large))
-
-def smallest():
-    #finding the smallest element in a matrix
-    small=np.min(mat)
-    ind=np.argwhere(mat==small)
-    print("smallest number in array is {} = {}".format(ind,small))
-
-def find():
-    #finding the element in a matrix
-    z=0
-    c=int(input("Which number do you want to find"))
-    for i in range(0,a):
-        for j in range(0,b):
-            if mat[i][j]==c:
-                x=i+1
-                y=j+1
-                z=1
-                print("the element is at ({},{})".format(x,y))
-    if z==0:
-        print("Number not in array")
-
-def reverse():
-    #reversing an array
-    mat1=np.flip(mat)   
-    print("the reversed matrix is",mat1)
-
-def rotate():
-    #rotating an array around kth position
-    k=int(input("Enter the position by which to rotate the matrix"))
-    mat2=np.roll(mat, k)
-    print(mat2)
-
-
-print('''Hello!
-Welcome to the Program
-Here you can perform different functions on an array''')
-
 import numpy as np
-a=int(input("Enter the number of rows="))
-b=int(input("Enter the number of columns="))
-mat=np.zeros(shape=(a,b), dtype = int)
-for i in range(0,a):
-    for j in range(0,b):
-        c=int(input("Enter the number in {},{}=".format(i+1,j+1)))    
-        mat[i,j]=c
-print(mat)
+# Searching Element
+def search(arr,size,s):
+    for i in range(size):
+        if(arr[i]==s):
+            return i
+    return -1
+
+# Find the largest number
+def largest(arr,size):
+    max=arr[0]
+    for i in arr:
+        if i>max:
+            max=i
+    return max
+
+# find smallest number
+def smallest(arr,size):
+    min=arr[0]
+    for i in arr:
+        if i<min:
+            min=i
+    return min
+
+# reverse array
+def reverse(arr,size):
+    return arr[::-1]
+
+# rotate the array
+def rotate(arr,size,k):
+    k=k%size
+    for i in range(k):
+        t=arr[size-1]
+        for j in range(size-1,0,-1):
+            arr[j]=arr[j-1]
+        arr[0]=t
+    return arr
+
+#Welcoming to the program
+
+name = input("Enter your name ").strip().title()
+print(f"Welcome to the program {name}", end=':)\n')
+
+#initialize and input an array
+arr=np.array([],dtype='i')
+size=int(input('Enter the size of the array - '))
+print('Input '+str(size)+' array elements:')
+for i in range(size):
+    arr=np.append(arr,int(input()))
+
+
+#Printing the operation menu
 
 while True:
+    print('''1- Find the largest number
+2-find the smallest number
+3-Find the number in array
+4-Reverse the array
+5-Rotate the array by k position
+6-Close the program''')
 
-    print('''Press the correct option:
-    1-To find the largest element in matrix
-    2-To find the smallest element in matrix
-    3-To find the index of an element in a matrix
-    4-To reverse the matrix
-    5-To rotate the matrix by k position
-    6-End program''')
+    ch=int(input('Input your choice- '))
+    if ch==1:
+        x=largest(arr,size)
+        print('Largest number is: '+str(x))
+    
 
-    ans=int(input("Enter Your option"))
-
-    if ans==1:  
-        largest()
-    elif ans==2:
-        smallest()
-    elif ans==3:
-        find()
-    elif ans==4:
-        reverse()
-    elif ans==5:
-        rotate()
-    elif ans==6:
-        print("Goodbye")
+    elif ch==2:
+        x=smallest(arr,size)
+        print('Smallest number is: ',x)
+    
+    elif ch==3:
+        s=int(input('Number to search in array:'))
+        x=search(arr,size,s)
+        if x!=-1:
+            print('Found at '+str(x+1))
+        else:
+            print('Not found')
+    
+    elif ch==4:
+        x=reverse(arr,size)
+        print('Reversed array: ')
+        print(x)
+    
+    elif ch==5:
+        k=int(input('Input the number of rotations: '))
+        x=rotate(arr,size,k)
+        print('Rotated array: ')
+        print(x)    
+    elif ch==6:
         break
+    
     else:
-        print("Wrong Input")    
+        print('Invalid choice. TRY AGAIN!!')
